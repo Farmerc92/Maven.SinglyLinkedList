@@ -26,6 +26,31 @@ public class SinglyLinkedList<T extends Comparable<T>> {
         return tempNode.getObj();
     }
 
+    public void swap(T obj1, T obj2){
+        Node<T> tempNode = tail;
+        int indexObj1 = -1;
+        int indexObj2 = -1;
+        while (tempNode != null){
+            if (tempNode.getObj() == obj1)
+                indexObj1 = tempNode.getIndex();
+            else if (tempNode.getObj() == obj2)
+                indexObj2 = tempNode.getIndex();
+            tempNode = tempNode.getNext();
+        }
+        this.set(indexObj1, obj1);
+        this.set(indexObj2, obj2);
+    }
+
+    public void set(int index, T obj){
+        int tempIndex = tail.getIndex();
+        Node<T> tempNode = tail;
+        while (tempIndex != index){
+            tempIndex++;
+            tempNode = tempNode.getNext();
+        }
+        tempNode.setObj(obj);
+    }
+
     public void add(T obj){
         if (tail == null){
             tail = new Node<T>(obj, null);
@@ -178,6 +203,48 @@ public class SinglyLinkedList<T extends Comparable<T>> {
     }
 
     public void sort(){
+        Node<T> tempNode1 = tail;
+        Node<T> tempNode2 = tail.getNext();
+        for(int i = 0; i < this.size() - 1; i++){
+            T holder1 = tempNode1.getObj();
+            T holder2 = tempNode2.getObj();
+            if (holder1.compareTo(holder2) > 0){
+                tempNode2.setObj(holder1);
+                tempNode1.setObj(holder2);
+            }
+            tempNode1 = tempNode2;
+            tempNode2 = tempNode2.getNext();
+        }
+    }
 
+    public void selectionSort(){
+        Node<T> tempNode = tail;
+        int toReplace = -1;
+        T value = null;
+        int index = 0;
+        int innerLoopCount = 0;
+        while(index < this.size() - 1){
+            T currentMin = this.get(index);
+            Node<T> tempNode1 = tempNode;
+            while(innerLoopCount < this.size() - 1){
+                Node<T> tempNode2 = tempNode1.getNext();
+                if (currentMin.compareTo(tempNode2.getObj()) < 0)
+                    value = tempNode2.getObj();
+                else {
+                    currentMin = tempNode2.getObj();
+                    toReplace = tempNode2.getIndex();
+                }
+                tempNode1 = tempNode1.getNext();
+                innerLoopCount++;
+            }
+            if (value == null){
+                value = tail.getObj();
+            }
+            this.set(index, currentMin);
+            this.set(toReplace, value);
+            tempNode = tempNode.getNext();
+            index++;
+            innerLoopCount = index;
+        }
     }
 }

@@ -26,6 +26,49 @@ public class SinglyLinkedListTest {
     }
 
     @Test
+    public void testSwap(){
+        Integer first = 5;
+        Integer second = 10;
+        Integer third = 15;
+        Integer fourth = 20;
+        Integer fifth = 25;
+
+        SinglyLinkedList list = new SinglyLinkedList();
+
+        list.add(first);
+        list.add(second);
+        list.add(third);
+        list.add(fourth);
+
+        list.swap(second, fourth);
+
+        Assert.assertEquals(first, list.get(0));
+        Assert.assertEquals(fourth, list.get(1));
+        Assert.assertEquals(third, list.get(2));
+        Assert.assertEquals(second, list.get(3));
+    }
+
+    @Test
+    public void testSet(){
+        Integer first = 5;
+        Integer second = 10;
+        Integer third = 15;
+        Integer fourth = 20;
+
+        SinglyLinkedList list = new SinglyLinkedList();
+
+        list.add(first);
+        list.add(second);
+        list.add(third);
+
+        list.set(2, fourth);
+
+        Assert.assertEquals(first, list.get(0));
+        Assert.assertEquals(second, list.get(1));
+        Assert.assertEquals(fourth, list.get(2));
+    }
+
+    @Test
     public void removeFirstIndexTest(){
         Integer first = 5;
         Integer second = 10;
@@ -240,5 +283,35 @@ public class SinglyLinkedListTest {
         Assert.assertEquals(list.get(2), listCopy.get(2));
         Assert.assertEquals(list.size(), listCopy.size());
         Assert.assertNotSame(list, listCopy);
+    }
+
+    @Test
+    public void sortIntegerTest(){
+        Integer first = 5;
+        Integer second = 10;
+        Integer third = 15;
+        Integer fourth = 20;
+        Integer fifth = 25;
+
+        SinglyLinkedList list = new SinglyLinkedList();
+
+        list.add(fifth);
+        list.add(fourth);
+        list.add(third);
+        list.add(second);
+        list.add(first);
+
+        list.selectionSort();
+        System.out.println(list.get(0));
+        System.out.println(list.get(1));
+        System.out.println(list.get(2));
+        System.out.println(list.get(3));
+        System.out.println(list.get(4));
+
+//        Assert.assertEquals(first, list.get(0));
+//        Assert.assertEquals(second, list.get(1));
+//        Assert.assertEquals(third, list.get(2));
+//        Assert.assertEquals(fourth, list.get(3));
+//        Assert.assertEquals(fifth, list.get(4));
     }
 }
