@@ -31,7 +31,6 @@ public class SinglyLinkedListTest {
         Integer second = 10;
         Integer third = 15;
         Integer fourth = 20;
-        Integer fifth = 25;
 
         SinglyLinkedList list = new SinglyLinkedList();
 
@@ -40,7 +39,7 @@ public class SinglyLinkedListTest {
         list.add(third);
         list.add(fourth);
 
-        list.swap(second, fourth);
+        list.swap(fourth, second);
 
         Assert.assertEquals(first, list.get(0));
         Assert.assertEquals(fourth, list.get(1));
@@ -301,17 +300,60 @@ public class SinglyLinkedListTest {
         list.add(second);
         list.add(first);
 
-        list.selectionSort();
-        System.out.println(list.get(0));
-        System.out.println(list.get(1));
-        System.out.println(list.get(2));
-        System.out.println(list.get(3));
-        System.out.println(list.get(4));
+        list.specialSort();
 
-//        Assert.assertEquals(first, list.get(0));
-//        Assert.assertEquals(second, list.get(1));
-//        Assert.assertEquals(third, list.get(2));
-//        Assert.assertEquals(fourth, list.get(3));
-//        Assert.assertEquals(fifth, list.get(4));
+        Assert.assertEquals(first, list.get(0));
+        Assert.assertEquals(second, list.get(1));
+        Assert.assertEquals(third, list.get(2));
+        Assert.assertEquals(fourth, list.get(3));
+        Assert.assertEquals(fifth, list.get(4));
+    }
+
+    @Test
+    public void sliceTest(){
+        Integer first = 5;
+        Integer second = 10;
+        Integer third = 15;
+        Integer fourth = 20;
+        Integer fifth = 25;
+
+        SinglyLinkedList list = new SinglyLinkedList();
+
+        list.add(fifth);
+        list.add(fourth);
+        list.add(third);
+        list.add(second);
+        list.add(first);
+
+        SinglyLinkedList listSlice = list.slice(1,4);
+
+        Assert.assertEquals(list.get(1), listSlice.get(0));
+        Assert.assertEquals(list.get(2), listSlice.get(1));
+        Assert.assertEquals(list.get(3), listSlice.get(2));
+    }
+
+    @Test
+    public void reverseTest(){
+        Integer first = 5;
+        Integer second = 10;
+        Integer third = 15;
+        Integer fourth = 20;
+        Integer fifth = 25;
+
+        SinglyLinkedList list = new SinglyLinkedList();
+
+        list.add(fifth);
+        list.add(fourth);
+        list.add(third);
+        list.add(second);
+        list.add(first);
+
+        list.reverse();
+
+        Assert.assertEquals(first, list.get(0));
+        Assert.assertEquals(second, list.get(1));
+        Assert.assertEquals(third, list.get(2));
+        Assert.assertEquals(fourth, list.get(3));
+        Assert.assertEquals(fifth, list.get(4));
     }
 }

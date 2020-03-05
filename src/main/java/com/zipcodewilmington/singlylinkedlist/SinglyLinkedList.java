@@ -1,5 +1,7 @@
 package com.zipcodewilmington.singlylinkedlist;
 
+import sun.awt.image.ImageWatched;
+
 import java.util.Comparator;
 import java.util.LinkedList;
 
@@ -37,8 +39,8 @@ public class SinglyLinkedList<T extends Comparable<T>> {
                 indexObj2 = tempNode.getIndex();
             tempNode = tempNode.getNext();
         }
-        this.set(indexObj1, obj1);
-        this.set(indexObj2, obj2);
+        this.set(indexObj2, obj1);
+        this.set(indexObj1, obj2);
     }
 
     public void set(int index, T obj){
@@ -71,9 +73,9 @@ public class SinglyLinkedList<T extends Comparable<T>> {
 
     public void shiftIndex(Node<T> node, int currentIndex){
         while (node != null){
-            currentIndex++;
             node.setIndex(currentIndex);
             node = node.getNext();
+            currentIndex++;
         }
     }
 
@@ -195,17 +197,32 @@ public class SinglyLinkedList<T extends Comparable<T>> {
         else
             return copySize();
     }
+    
+    public SinglyLinkedList<T> slice(int indexStartInclusive, int indexEndExclusive){
+        SinglyLinkedList<T> copy = this.copy();
+        for (int i = 0; i < copy.size(); i++) {
+            if (i < indexStartInclusive || i >= indexEndExclusive){
+                copy.remove(i);
+            }
+        }
+        return copy;
+    }
 
     public void reverse(){
         int size = this.size();
-        Node<T> tempNode = head;
-
+        for (int i = 0; i < size; i++) {
+            this.add(this.get(size - 1 - i));
+        }
+        for (int i = 0; i < size; i++) {
+            this.remove(0);
+        }
     }
 
     public void sort(){
         Node<T> tempNode1 = tail;
         Node<T> tempNode2 = tail.getNext();
-        for(int i = 0; i < this.size() - 1; i++){
+        int index = 0;
+        while(index < this.size() - 1){
             T holder1 = tempNode1.getObj();
             T holder2 = tempNode2.getObj();
             if (holder1.compareTo(holder2) > 0){
@@ -214,6 +231,7 @@ public class SinglyLinkedList<T extends Comparable<T>> {
             }
             tempNode1 = tempNode2;
             tempNode2 = tempNode2.getNext();
+            index++;
         }
     }
 
@@ -245,6 +263,32 @@ public class SinglyLinkedList<T extends Comparable<T>> {
             tempNode = tempNode.getNext();
             index++;
             innerLoopCount = index;
+        }
+    }
+
+    public void specialSort(){
+        Node<T> next = tail;
+        int size = this.size();
+        int sizeSave = size;
+        int index = 0;
+        while (size > 0){
+            T currentMin = next.getObj();
+            while (index < size - 1){
+                Node<T> next1 = next.getNext();
+                if (currentMin.compareTo(next1.getObj()) < 0){}
+                else{
+                    currentMin = next1.getObj();
+                }
+                next = next.getNext();
+                index++;
+            }
+            index = 0;
+            add(currentMin);
+            size--;
+            next = tail;
+        }
+        for (int i = 0; i < sizeSave; i++) {
+            remove(0);
         }
     }
 }
