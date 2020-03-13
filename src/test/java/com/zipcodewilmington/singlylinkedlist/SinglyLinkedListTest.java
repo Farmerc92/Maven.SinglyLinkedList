@@ -1,6 +1,7 @@
 package com.zipcodewilmington.singlylinkedlist;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -8,20 +9,31 @@ import org.junit.Test;
  */
 public class SinglyLinkedListTest {
 
+    private SinglyLinkedList<String> list;
+    private String first;
+    private String second;
+    private String third;
+    private String fourth;
+    private String fifth;
+    private String sixth;
 
-
-    @Test
-    public void addTest(){
-        Integer first = 5;
-        Integer second = 10;
-        Integer third = 15;
-
-        SinglyLinkedList list = new SinglyLinkedList();
-
+    @Before
+    public void init(){
+        first = "first";
+        second = "second";
+        third = "third";
+        fourth = "fourth";
+        fifth = "fifth";
+        sixth = "sixth";
+        list = new SinglyLinkedList<String>();
         list.add(first);
         list.add(second);
         list.add(third);
-
+        list.add(fourth);
+        list.add(fifth);
+    }
+    @Test
+    public void addTest(){
         Assert.assertEquals(first, list.get(0));
         Assert.assertEquals(second, list.get(1));
         Assert.assertEquals(third, list.get(2));
@@ -29,18 +41,6 @@ public class SinglyLinkedListTest {
 
     @Test
     public void testSwap(){
-        Integer first = 5;
-        Integer second = 10;
-        Integer third = 15;
-        Integer fourth = 20;
-
-        SinglyLinkedList list = new SinglyLinkedList();
-
-        list.add(first);
-        list.add(second);
-        list.add(third);
-        list.add(fourth);
-
         list.swap(fourth, second);
 
         Assert.assertEquals(first, list.get(0));
@@ -51,17 +51,6 @@ public class SinglyLinkedListTest {
 
     @Test
     public void testSet(){
-        Integer first = 5;
-        Integer second = 10;
-        Integer third = 15;
-        Integer fourth = 20;
-
-        SinglyLinkedList list = new SinglyLinkedList();
-
-        list.add(first);
-        list.add(second);
-        list.add(third);
-
         list.set(2, fourth);
 
         Assert.assertEquals(first, list.get(0));
@@ -71,16 +60,6 @@ public class SinglyLinkedListTest {
 
     @Test
     public void removeFirstIndexTest(){
-        Integer first = 5;
-        Integer second = 10;
-        Integer third = 15;
-
-        SinglyLinkedList list = new SinglyLinkedList();
-
-        list.add(first);
-        list.add(second);
-        list.add(third);
-
         list.removeFirstIndex();
 
         Assert.assertEquals(second, list.get(0));
@@ -89,16 +68,6 @@ public class SinglyLinkedListTest {
 
     @Test
     public void removeSecondIndexTest(){
-        Integer first = 5;
-        Integer second = 10;
-        Integer third = 15;
-
-        SinglyLinkedList list = new SinglyLinkedList();
-
-        list.add(first);
-        list.add(second);
-        list.add(third);
-
         list.removeSecondIndex();
 
         Assert.assertEquals(first, list.get(0));
@@ -107,18 +76,6 @@ public class SinglyLinkedListTest {
 
     @Test
     public void removeAlmostAnyIndexTest(){
-        Integer first = 5;
-        Integer second = 10;
-        Integer third = 15;
-        Integer fourth = 20;
-
-        SinglyLinkedList list = new SinglyLinkedList();
-
-        list.add(first);
-        list.add(second);
-        list.add(third);
-        list.add(fourth);
-
         list.removeOtherIndex(2);
 
         Assert.assertEquals(first, list.get(0));
@@ -128,119 +85,68 @@ public class SinglyLinkedListTest {
 
     @Test
     public void removeLastIndex(){
-        Integer first = 5;
-        Integer second = 10;
-        Integer third = 15;
-        Integer fourth = 20;
-
-        SinglyLinkedList list = new SinglyLinkedList();
-
-        list.add(first);
-        list.add(second);
-        list.add(third);
-        list.add(fourth);
-
-        list.remove(3);
+        list.remove(4);
 
         Assert.assertEquals(first, list.get(0));
         Assert.assertEquals(second, list.get(1));
         Assert.assertEquals(third, list.get(2));
+        Assert.assertEquals(fourth, list.get(3));
     }
 
     @Test
     public void testContains(){
-        Integer first = 5;
-        Integer second = 10;
-        Integer third = 15;
-        Integer fourth = 20;
-
-        SinglyLinkedList list = new SinglyLinkedList();
-
-        list.add(first);
-        list.add(second);
-        list.add(third);
-
         Assert.assertTrue(list.contains(first));
         Assert.assertTrue(list.contains(second));
         Assert.assertTrue(list.contains(third));
-        Assert.assertFalse(list.contains(fourth));
+        Assert.assertTrue(list.contains(fourth));
+        Assert.assertTrue(list.contains(fifth));
+        Assert.assertFalse(list.contains(sixth));
     }
 
     @Test
     public void testSize(){
-        Integer first = 5;
-        Integer second = 10;
-        Integer third = 15;
-
-        SinglyLinkedList list = new SinglyLinkedList();
-
-        list.add(first);
-        list.add(second);
-        list.add(third);
-
-        int expectedSize = 3;
+        int expectedSize = 5;
 
         Assert.assertEquals(expectedSize, list.size());
     }
 
     @Test
     public void testEmptyListSize(){
-        SinglyLinkedList list = new SinglyLinkedList();
-
+        SinglyLinkedList<String> newList = new SinglyLinkedList<String>();
         int expectedSize = 0;
-
-        Assert.assertEquals(expectedSize, list.size());
+        Assert.assertEquals(expectedSize, newList.size());
     }
 
     @Test
     public void testContainsEmpty(){
-        Integer first = 5;
-        Integer second = 10;
-        Integer third = 15;
+        SinglyLinkedList<String> newList = new SinglyLinkedList<String>();
 
-        SinglyLinkedList list = new SinglyLinkedList();
-
-        Assert.assertFalse(list.contains(5));
+        Assert.assertFalse(newList.contains(first));
     }
 
     @Test
     public void testFind(){
-        Integer first = 5;
-        Integer second = 10;
-        Integer third = 15;
-        Integer fourth = 20;
-        Integer fifth = 25;
-
         int expectedFirst = 0;
         int expectedSecond = 1;
         int expectedThird = 2;
         int expectedFourth = 3;
-        int expectedFifth = -1;
-
-
-        SinglyLinkedList list = new SinglyLinkedList();
-
-        list.add(first);
-        list.add(second);
-        list.add(third);
-        list.add(fourth);
+        int expectedFifth = 4;
+        int expectedSixth = -1;
 
         Assert.assertEquals(expectedFirst, list.find(first));
         Assert.assertEquals(expectedSecond, list.find(second));
         Assert.assertEquals(expectedThird, list.find(third));
         Assert.assertEquals(expectedFourth, list.find(fourth));
         Assert.assertEquals(expectedFifth, list.find(fifth));
+        Assert.assertEquals(expectedSixth, list.find(sixth));
     }
 
     @Test
     public void testCopySizeOne(){
-        Integer first = 5;
-
-        SinglyLinkedList list = new SinglyLinkedList();
-
-        list.add(first);
-
-        SinglyLinkedList listCopy = list.copy();
+        for (int i = 0; i < 4; i++) {
+            list.remove(0);
+        }
+        SinglyLinkedList<String> listCopy = list.copy();
 
         Assert.assertEquals(list.get(0), listCopy.get(0));
         Assert.assertEquals(list.size(), listCopy.size());
@@ -248,16 +154,22 @@ public class SinglyLinkedListTest {
     }
 
     @Test
+    public void testCopyEmpty(){
+        for (int i = 0; i < 5; i++) {
+            list.remove(0);
+        }
+        SinglyLinkedList<String> listCopy = list.copy();
+
+        Assert.assertEquals(list.size(), listCopy.size());
+        Assert.assertNotSame(list, listCopy);
+    }
+
+    @Test
     public void testCopySizeTwo(){
-        Integer first = 5;
-        Integer second = 10;
-
-        SinglyLinkedList list = new SinglyLinkedList();
-
-        list.add(first);
-        list.add(second);
-
-        SinglyLinkedList listCopy = list.copy();
+        for (int i = 0; i < 3; i++) {
+            list.remove(0);
+        }
+        SinglyLinkedList<String> listCopy = list.copy();
 
         Assert.assertEquals(list.get(0), listCopy.get(0));
         Assert.assertEquals(list.get(1), listCopy.get(1));
@@ -267,67 +179,28 @@ public class SinglyLinkedListTest {
 
     @Test
     public void testCopySizeMany(){
-        Integer first = 5;
-        Integer second = 10;
-        Integer third = 15;
-
-        SinglyLinkedList list = new SinglyLinkedList();
-
-        list.add(first);
-        list.add(second);
-        list.add(third);
-
-        SinglyLinkedList listCopy = list.copy();
-
-        Assert.assertEquals(list.get(0), listCopy.get(0));
-        Assert.assertEquals(list.get(1), listCopy.get(1));
-        Assert.assertEquals(list.get(2), listCopy.get(2));
+        SinglyLinkedList<String> listCopy = list.copy();
+        for (int i = 0; i < 5; i++) {
+            Assert.assertEquals(list.get(i), listCopy.get(i));
+        }
         Assert.assertEquals(list.size(), listCopy.size());
         Assert.assertNotSame(list, listCopy);
     }
 
     @Test
     public void sortIntegerTest(){
-        Integer first = 5;
-        Integer second = 10;
-        Integer third = 15;
-        Integer fourth = 20;
-        Integer fifth = 25;
+        list.bubbleSort();
 
-        SinglyLinkedList list = new SinglyLinkedList();
-
-        list.add(fifth);
-        list.add(fourth);
-        list.add(third);
-        list.add(second);
-        list.add(first);
-
-        list.specialSort();
-
-        Assert.assertEquals(first, list.get(0));
-        Assert.assertEquals(second, list.get(1));
-        Assert.assertEquals(third, list.get(2));
-        Assert.assertEquals(fourth, list.get(3));
-        Assert.assertEquals(fifth, list.get(4));
+        Assert.assertEquals(fifth, list.get(0));
+        Assert.assertEquals(first, list.get(1));
+        Assert.assertEquals(fourth, list.get(2));
+        Assert.assertEquals(second, list.get(3));
+        Assert.assertEquals(third, list.get(4));
     }
 
     @Test
     public void sliceTest(){
-        Integer first = 5;
-        Integer second = 10;
-        Integer third = 15;
-        Integer fourth = 20;
-        Integer fifth = 25;
-
-        SinglyLinkedList list = new SinglyLinkedList();
-
-        list.add(fifth);
-        list.add(fourth);
-        list.add(third);
-        list.add(second);
-        list.add(first);
-
-        SinglyLinkedList listSlice = list.slice(1,4);
+        SinglyLinkedList<String> listSlice = list.slice(1,4);
 
         Assert.assertEquals(list.get(1), listSlice.get(0));
         Assert.assertEquals(list.get(2), listSlice.get(1));
@@ -336,27 +209,13 @@ public class SinglyLinkedListTest {
 
     @Test
     public void reverseTest(){
-        Integer first = 5;
-        Integer second = 10;
-        Integer third = 15;
-        Integer fourth = 20;
-        Integer fifth = 25;
-
-        SinglyLinkedList list = new SinglyLinkedList();
-
-        list.add(fifth);
-        list.add(fourth);
-        list.add(third);
-        list.add(second);
-        list.add(first);
-
         list.reverse();
 
-        Assert.assertEquals(first, list.get(0));
-        Assert.assertEquals(second, list.get(1));
+        Assert.assertEquals(fifth, list.get(0));
+        Assert.assertEquals(fourth, list.get(1));
         Assert.assertEquals(third, list.get(2));
-        Assert.assertEquals(fourth, list.get(3));
-        Assert.assertEquals(fifth, list.get(4));
+        Assert.assertEquals(second, list.get(3));
+        Assert.assertEquals(first, list.get(4));
     }
 
 }

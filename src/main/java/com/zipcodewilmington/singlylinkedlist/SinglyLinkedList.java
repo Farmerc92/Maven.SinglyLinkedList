@@ -78,9 +78,9 @@ public class SinglyLinkedList<T extends Comparable<T>> {
     }
 
     public void removeFirstIndex(){
-        Node<T> newTail = head.getNext();
+        Node<T> newHead = head.getNext();
         head.setNext(null);
-        head = newTail;
+        head = newHead;
         head.setIndex(0);
         shiftIndex(tail.getNext(), 0);
     }
@@ -125,16 +125,19 @@ public class SinglyLinkedList<T extends Comparable<T>> {
     }
 
     public void remove(int index){
-        if (index == 0){
+        if (index == 0 && this.size() == 1)
+            removeLastElement();
+        else if (index == 0)
             removeFirstIndex();
-        }
-        else if (index == 1){
+        else if (index == 1)
             removeSecondIndex();
-        }
-        else {
+        else
             removeOtherIndex(index);
-        }
         length--;
+    }
+
+    private void removeLastElement() {
+        head = null;
     }
 
     public boolean contains(T obj){
@@ -207,33 +210,7 @@ public class SinglyLinkedList<T extends Comparable<T>> {
         }
     }
 
-    public void specialSort(){
-        Node<T> next = head;
-        int size = this.size();
-        int sizeSave = size;
-        int index = 0;
-        while (size > 0){
-            T currentMin = next.getObj();
-            while (index < size - 1){
-                Node<T> next1 = next.getNext();
-                if (currentMin.compareTo(next1.getObj()) < 0){}
-                else{
-                    currentMin = next1.getObj();
-                }
-                next = next.getNext();
-                index++;
-            }
-            index = 0;
-            add(currentMin);
-            size--;
-            next = head;
-        }
-        for (int i = 0; i < sizeSave; i++) {
-            remove(0);
-        }
-    }
-
-    public void sort(){
+    public void bubbleSort(){
         for (int i = 0; i < length - 1; i++) {
             T currentI = get(i);
             for (int j = i + 1; j < length; j++) {
