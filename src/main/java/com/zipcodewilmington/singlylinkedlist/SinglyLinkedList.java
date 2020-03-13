@@ -51,22 +51,31 @@ public class SinglyLinkedList<T extends Comparable<T>> {
     }
 
     public void add(T obj){
-        if (head == null){
-            head = new Node<T>(obj, null);
-            head.setIndex(0);
-        }
-        else if (tail == null){
-            tail = new Node<T>(obj, null);
-            head.setNext(tail);
-            tail.setIndex(1);
-        }
-        else {
-            int nextIndex = tail.getIndex() + 1;
-            tail.setNext(new Node<T>(obj, null));
-            tail = tail.getNext();
-            tail.setIndex(nextIndex);
-        }
+        if (head == null)
+            addFirstElement(obj);
+        else if (tail == null)
+            addSecondElement(obj);
+        else
+            addThirdElementOnwards(obj);
         length++;
+    }
+
+    public void addFirstElement(T obj){
+        head = new Node<T>(obj, null);
+        head.setIndex(0);
+    }
+
+    public void addSecondElement(T obj){
+        tail = new Node<T>(obj, null);
+        head.setNext(tail);
+        tail.setIndex(1);
+    }
+
+    public void addThirdElementOnwards(T obj){
+        int nextIndex = tail.getIndex() + 1;
+        tail.setNext(new Node<T>(obj, null));
+        tail = tail.getNext();
+        tail.setIndex(nextIndex);
     }
 
     public void shiftIndex(Node<T> node, int currentIndex){
